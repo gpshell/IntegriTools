@@ -1,5 +1,7 @@
-# This script generates two CSV files. One containing system information, and one containing disk information
-# This script is intended to be used during server maintenance, but should work on any Windows machine
+### This script generates two CSV files. One containing system information, and one containing disk information
+### This script is intended to be used during server maintenance, but should work on any Windows machine
+### Working as of: 2025-12-08
+
 Write-Host("System Status Report") -ForegroundColor Yellow
 
 Write-Host("")
