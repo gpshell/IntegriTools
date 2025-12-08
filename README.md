@@ -1,7 +1,7 @@
 # IntegriTools
 A collection of PowerShell scripts.
 
-## Structure
+## Directory
 
 ### Exchange
 Used to interact with Exchange Online. Use ```Connect-ExchangeOnline``` before running these scripts.
