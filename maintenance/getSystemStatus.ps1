@@ -143,6 +143,8 @@ $verticalReport = $report.PSObject.Properties | ForEach-Object {
     }
 }
 
+
+
 # Export to CSV
 $timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
 $verticalReport | Export-Csv -Path ".\$($comp.Name) $($timestamp).csv" -NoTypeInformation -Encoding UTF8
