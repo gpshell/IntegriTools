@@ -9,3 +9,5 @@ Used to interact with Exchange Online. Use ```Connect-ExchangeOnline``` before r
 ### Maintenance
 Useful in routuine maintenance checks. Applies to servers or workstations.
 
+### Onboarding
+Used when setting up a new user or PC.
