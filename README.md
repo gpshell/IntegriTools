@@ -6,6 +6,9 @@ A collection of PowerShell scripts.
 ### Exchange
 Used to interact with Exchange Online. Use ```Connect-ExchangeOnline``` before running these scripts.
 
+### Experimental
+Underdeveloped or cant go into any other category yet.
+
 ### Maintenance
 Useful in routuine maintenance checks. Applies to servers or workstations.
 
