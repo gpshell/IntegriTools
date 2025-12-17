@@ -1,21 +1,68 @@
-### !!! THIS SCRIPT IS A WORK-IN-PROGRESS !!!
-### Tries to identify which monitor cables are connected to the PC.
-### Working as of: 2025-12-08
+<#
+!!! THIS SCRIPT IS A WORK-IN-PROGRESS !!!
+This script has only been tested on a few PCs, so its results
+may not be useful in some circumstances. Always double check.
+#>
 
+### Returns information about displays connected to the PC.
+### Working as of: 2025-12-17
+
+#!ps
+#maxlength=500000
+#timeout=3000000
 $connections = get-ciminstance -namespace root/wmi -classname WmiMonitorConnectionParams
+$monitors = get-ciminstance -namespace root/wmi -classname WmiMonitorID
+
+$data = @() #array to be populated with results
 
 foreach ($con in $connections)
 {
+  $vot = "Unknown"
+  $displayName = "Unknown"
+  $instanceName = "Unknown"
 
-    if ($con.videooutputtechnology -eq 0) {write-host "VGA - $($con.InstanceName)" -ForegroundColor Red}
-    elseif ($con.videooutputtechnology -eq 10) {write-host "DP - $($con.InstanceName)" -ForegroundColor Red}
-    elseif ($con.videooutputtechnology -eq 4) {write-host "DVI - $($con.InstanceName)" -ForegroundColor Red}
-    elseif ($con.videooutputtechnology -eq 5) {write-host "HDMI - $($con.InstanceName)" -ForegroundColor Red}
-    else {write-host "$($con.videooutputtechnology) is unknown" -ForegroundColor Red}
+  foreach ($mon in $monitors)
+  {
+    if ($mon.InstanceName -eq $con.InstanceName)
+    {
+      if ($con.VideoOutputTechnology -eq 0) { $vot = "VGA" }
+      elseif ($con.VideoOutputTechnology -eq 4) { $vot = "DVI" }
+      elseif ($con.VideoOutputTechnology -eq 5) { $vot = "HDMI" }
+      elseif ($con.VideoOutputTechnology -eq 10) { $vot = "DP (External)" }
+      elseif ($con.VideoOutputTechnology -eq 11) { $vot = "DP (Embeded)" }
+      elseif ($con.VideoOutputTechnology -eq 2147483648) { $vot = "Internal" }
+
+      if ($mon.UserFriendlyName)
+      {
+        $displayName = [System.Text.Encoding]::ASCII.GetString($mon.UserFriendlyName)
+      }
+      elseif ($mon.ManufacturerName)
+      {
+        $displayName = [System.Text.Encoding]::ASCII.GetString($mon.ManufacturerName)
+      }
+      if ($mon.InstanceName)
+      {
+        $instanceName = $con.InstanceName
+      }
+    }
+  }
+  $data += [PSCustomObject]@{
+    ConnectionType = $vot;
+    DisplayName = $displayName;
+    InstanceName = $instanceName
+  }
 }
 
+$data | Format-List
 
-<# Key
+<#
+Results are displayed as a list with 3 fields per item:
+ConnectionType - Only applicable to the PC, not the monitor. (E.g. a DP-to-HDMI cable will show up as DP, as the DP is connected to the PC)
+DisplayName - Name of the monitor; if no name is found, the script tries to display the manufacturer name (e.g. LEN = LENOVO)
+InstanceName - A unique value used to differentiate between monitors. 2 identical monitors will have different instance names
+#>
+
+<# Key (DEV USE ONLY; NOT NEEDED TO RUN THE SCRIPT)
 typedef enum _D3DKMDT_VIDEO_OUTPUT_TECHNOLOGY {
   D3DKMDT_VOT_UNINITIALIZED = -2,
   D3DKMDT_VOT_OTHER = -1,
