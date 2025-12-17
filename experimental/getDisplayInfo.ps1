@@ -13,7 +13,7 @@ may not be useful in some circumstances. Always double check.
 $connections = get-ciminstance -namespace root/wmi -classname WmiMonitorConnectionParams
 $monitors = get-ciminstance -namespace root/wmi -classname WmiMonitorID
 
-$data = @() #array to be populated with results
+$data = @()
 
 foreach ($con in $connections)
 {
