@@ -9,8 +9,8 @@ Used to interact with Exchange Online. Use ```Connect-ExchangeOnline``` before r
 ### Experimental
 Underdeveloped or cant go into any other category yet.
 
-### Maintenance
-Useful in routuine maintenance checks. Applies to servers or workstations.
+### Probe
+Gather information from the system, without making any changes.
 
 ### Onboarding
 Used when setting up a new user or PC.
