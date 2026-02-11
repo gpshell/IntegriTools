@@ -13,9 +13,12 @@ Install-Module PSWindowsUpdate
 Get-WindowsUpdate
 Install-WindowsUpdate
 
-# Enable "Windows Features" - Always double-check
+## Enable "Windows Features" - Always double-check
 
 # "SMB 1.0/CIFS File Sharing Support"
 Enable-WindowsOptionalFeature -Online -FeatureName "SMB1Protocol" -All -NoRestart
 # ".NET Framework 3.5 (includes .NET 2.0 and 3.0)"
 Enable-WindowsOptionalFeature -Online -FeatureName "NetFx3" -All -NoRestart
+
+# Taskbar - Hide Task View button (current user only)
+Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name 'ShowTaskViewButton' -Type 'DWord' -Value 0
