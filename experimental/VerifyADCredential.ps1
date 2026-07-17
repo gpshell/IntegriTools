@@ -7,3 +7,13 @@ Function Test-ADCreds {
     (New-Object DirectoryServices.DirectoryEntry "",$username,$password).psbase.name -ne $null
 }
 Test-ADCreds -username $creds.UserName -password $creds.GetNetworkCredential().password
+
+
+<#
+If the script returns "false", the possible causes are:
+- Invalid username (check that the account exists on a domain) or password
+- The user's account is disabled or locked in the AD
+- The domain is not available
+
+Original script: https://woshub.com/validate-ad-user-credentials-powershell/
+#>

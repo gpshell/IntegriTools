@@ -10,10 +10,9 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 
 Install-Module PSWindowsUpdate
-# BEFORE INSTALLING THE WINDOWS UPDATES, YOU MAY WANT TO DISABLE THIS ONE
-# Temporarily bypass execution policy for this session
-Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
-# Prevent update from being installed
+
+# If there is a problematic Windows update you wish to ignore, use the following command
+# KB5074109 is being used as an example, but this can be replaced with another code
 Hide-WindowsUpdate -KBArticleID KB5074109 -Verbose
 
 # Install latest Windows updates. Double-check the Settings app to be sure
