@@ -19,7 +19,7 @@ Hide-WindowsUpdate -KBArticleID KB5074109 -Verbose
 Get-WindowsUpdate
 Install-WindowsUpdate
 
-## Enable "Windows Features" - Always double-check
+## Enable "Windows Features" - Always double-check after
 
 # "SMB 1.0/CIFS File Sharing Support"
 Enable-WindowsOptionalFeature -Online -FeatureName "SMB1Protocol" -All -NoRestart
