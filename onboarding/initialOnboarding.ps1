@@ -13,7 +13,7 @@ Install-Module PSWindowsUpdate
 
 # If there is a problematic Windows update you wish to ignore, use the following command
 # KB5074109 is being used as an example, but this can be replaced with another code
-Hide-WindowsUpdate -KBArticleID KB5074109 -Verbose
+# Hide-WindowsUpdate -KBArticleID KB5074109 -Verbose
 
 # Install latest Windows updates. Double-check the Settings app to be sure
 Get-WindowsUpdate
